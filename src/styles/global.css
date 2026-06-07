@@ -43,4 +43,7 @@
 @theme {
   --font-sans: "Jost", sans-serif;
   --color-primary: #ED6B1B;
+  --color-primary-emphasis: #D66118;
+  --color-secondary: #FEF7F3;
+  --color-secondary-emphasis: #FDF0E8;
 }

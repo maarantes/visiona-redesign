@@ -1,13 +1,10 @@
 ---
 import Root from "@/components/Root.astro";
 import { Image } from "astro:assets";
-import logoVisiona from "@/assets/images/logo-color.svg";
+import BannerImage from "@/assets/images/banner.png";
 ---
 
 <Root title="Home">
-  <div class="flex flex-col gap-8 h-screen items-center justify-center">
-    <Image src={logoVisiona} alt="Logo Visiona" width={200} />
-    <h1 class="text-5xl font-bold text-primary">Visiona Redesign</h1>
-    <p class="text-xl text-slate-500">Teste legal e especial</p>
-  </div>
+  <Image src={BannerImage} alt="Banner" class="h-screen w-full object-cover" />
+  <div class="bg-slate-950 h-400" />
 </Root>
