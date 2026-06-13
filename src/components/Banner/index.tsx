@@ -3,7 +3,7 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import DOMPurify from "isomorphic-dompurify";
 import { Button } from "@/components/Button";
 import { cn } from "@/utils/className";
-import { container } from "@/constants/layout";
+import { Container } from "@/constants/layout";
 import type { BannerCarouselSlide } from "@/sanity/schemas/Home/BannerCarousel/data";
 
 const DURATION = 600;
@@ -18,23 +18,21 @@ interface SlideState {
 }
 
 function sanityImageSrcSet(url: string) {
-  return [640, 1280, 1920, 2560].map((w) => `${url}?w=${w}&auto=format ${w}w`).join(", ");
+  return [640, 1280, 1920, 2560]
+    .map((w) => `${url}?w=${w}&auto=format ${w}w`)
+    .join(", ");
 }
 
 function slideAnimation(index: number, state: SlideState): React.CSSProperties {
   if (index === state.active) {
     if (state.exiting === null) return {};
     const anim =
-      state.direction === "left"
-        ? "slide-in-right"
-        : "slide-in-left";
+      state.direction === "left" ? "slide-in-right" : "slide-in-left";
     return { animation: `${anim} ${DURATION}ms ease forwards` };
   }
   if (index === state.exiting) {
     const anim =
-      state.direction === "left"
-        ? "slide-out-left"
-        : "slide-out-right";
+      state.direction === "left" ? "slide-out-left" : "slide-out-right";
     return { animation: `${anim} ${DURATION}ms ease forwards` };
   }
   return { display: "none" };
@@ -112,7 +110,7 @@ export function Banner({ slides }: Props) {
 
   return (
     <div
-      className="relative h-screen w-full overflow-hidden touch-pan-y"
+      className="relative h-dvh w-full overflow-hidden touch-pan-y"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerCancel={resetDrag}
@@ -135,27 +133,27 @@ export function Banner({ slides }: Props) {
           <div className="absolute inset-0 bg-black/20" />
 
           <div className="absolute inset-0 flex items-center">
-            <div className={cn("w-full", container)}>
+            <div className={cn("w-full", Container)}>
               <div className="w-full lg:w-2/3">
-                <h1 className="text-4xl sm:text-5xl leading-tight font-semibold text-white xl:text-6xl">
+                <p className="text-2xl sm:text-5xl leading-tight font-semibold text-white xl:text-6xl">
                   {slide.titleBefore}{" "}
-                  <span className="inline-flex items-center gap-2 lg:gap-4 rounded bg-white px-2 lg:px-4 py-1 align-middle uppercase text-3xl text-gray-900 xl:text-5xl">
+                  <span className="inline-flex items-center gap-2 lg:gap-4 rounded bg-white px-2 lg:px-4 py-0 sm:py-1 align-middle uppercase text-3xl text-slate-900 xl:text-5xl">
                     <span
-                      className="size-9 lg:size-14 shrink-0 [&>svg]:h-full [&>svg]:w-full"
+                      className="size-6 sm:size-9 lg:size-14 shrink-0 [&>svg]:h-full [&>svg]:w-full"
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(slide.highlight.icon, {
                           USE_PROFILES: { svg: true, svgFilters: true },
                         }),
                       }}
                     />
-                    <span className="font-semibold">
+                    <span className="text-2xl sm:text-5xl xl:text-6xl font-semibold">
                       {slide.highlight.text}
                     </span>
-                  </span>
-                  {" "}{slide.titleAfter}
-                </h1>
+                  </span>{" "}
+                  {slide.titleAfter}
+                </p>
 
-                <p className="mt-10 mb-12 leading-relaxed max-w-full lg:max-w-4/5 text-2xl text-white/95">
+                <p className="mt-10 mb-12 leading-relaxed max-w-full lg:max-w-4/5 text-base sm:text-2xl text-white/95">
                   {slide.subtitle}
                 </p>
 
@@ -172,7 +170,7 @@ export function Banner({ slides }: Props) {
       ))}
 
       <div className="absolute bottom-8 z-20 w-full">
-        <div className={cn(container, "flex items-center justify-between")}>
+        <div className={cn(Container, "flex items-center justify-between")}>
           <button
             onClick={() => navigate("right")}
             aria-label="Slide anterior"

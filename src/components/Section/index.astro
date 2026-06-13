@@ -1,0 +1,16 @@
+---
+import { cn } from "@/utils/className";
+import { Container } from "@/constants/layout";
+
+interface Props {
+  secondary?: boolean;
+}
+
+const { secondary } = Astro.props;
+---
+
+<section class={cn("w-full py-8 sm:py-16 lg:py-32", secondary && "bg-slate-50")}>
+  <div class={cn(Container, "flex flex-col items-center gap-8 lg:gap-12")}>
+    <slot />
+  </div>
+</section>

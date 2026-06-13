@@ -1,13 +1,15 @@
 ---
 import "../styles/global.css";
 import { Navbar } from "./Navbar";
+import SEO from "./SEO.astro";
 
 interface Props {
   title: string;
+  h1: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
-const paginaTitulo = `${title} | Visiona`;
+const { title, h1, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,12 +18,13 @@ const paginaTitulo = `${title} | Visiona`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
-    <title>{paginaTitulo}</title>
+    <SEO title={title} description={description} />
   </head>
 
   <body class="font-sans antialiased">
     <Navbar client:load />
     <main>
+      <h1 class="sr-only">{h1}</h1>
       <slot />
     </main>
   </body>

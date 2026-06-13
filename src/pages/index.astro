@@ -1,19 +1,75 @@
 ---
 import Root from "@/components/Root.astro";
 import { Banner } from "@/components/Banner";
-import { LogoCarousel } from "@/components/LogoCarousel";
+import LogoCarousel from "@/components/LogoCarousel/index.astro";
+import Section from "@/components/Section/index.astro";
 import { sanityClient } from "@/sanity/client";
-import { BANNER_CAROUSEL_QUERY, type BannerCarouselSlide } from "@/sanity/schemas/Home/BannerCarousel/data";
-import { LOGO_CAROUSEL_QUERY, type LogoCarousel as LogoCarouselItem } from "@/sanity/schemas/Home/LogoCarousel/data";
+import {
+  BANNER_CAROUSEL_QUERY,
+  type BannerCarouselSlide,
+} from "@/sanity/schemas/Home/BannerCarousel/data";
+import {
+  LOGO_CAROUSEL_QUERY,
+  type LogoCarousel as LogoCarouselItem,
+} from "@/sanity/schemas/Home/LogoCarousel/data";
+import { SectionSubtitle, SectionTitle } from "@/constants/layout";
+import flagBrazil from "@/assets/images/flag-brazil.png";
+import logoEmbraer from "@/assets/images/logo-embraer.png";
+import logoTelebras from "@/assets/images/logo-telebras.png";
+import SectionDivider from "@/components/SectionDivider.astro";
 
 const [slides, logos] = await Promise.all([
-  sanityClient.fetch<BannerCarouselSlide[]>(BANNER_CAROUSEL_QUERY, {}, { perspective: "published" }),
-  sanityClient.fetch<LogoCarouselItem[]>(LOGO_CAROUSEL_QUERY, {}, { perspective: "published" }),
+  sanityClient.fetch<BannerCarouselSlide[]>(
+    BANNER_CAROUSEL_QUERY,
+    {},
+    { perspective: "published" },
+  ),
+  sanityClient.fetch<LogoCarouselItem[]>(
+    LOGO_CAROUSEL_QUERY,
+    {},
+    { perspective: "published" },
+  ),
 ]);
 ---
 
-<Root title="Home">
+<Root
+  title="Home"
+  h1="Visiona: Integradora Brasileira de Sistemas Espaciais"
+  description="Visiona é a integradora brasileira de sistemas espaciais, uma joint-venture entre a Embraer e Telebras."
+>
   <Banner slides={slides} client:load />
   <LogoCarousel logos={logos} />
-  <div class=" h-400" />
+  <Section>
+    <h2 class={SectionTitle}>
+      A integradora
+      <img
+        src={flagBrazil.src}
+        alt="Bandeira do Brasil"
+        class="inline h-5 lg:h-10 -mt-1 lg:-mt-2"
+      />
+      <span class="text-[#009440]">brasileira</span> de sistemas espaciais
+    </h2>
+    <h3 class={SectionSubtitle}>
+      Resultante de uma iniciativa única do Governo brasileiro de estimular a
+      criação de uma empresa integradora na indústria espacial, a Visiona é uma
+      joint-venture entre a Embraer Defesa & Segurança e a Telebras.
+    </h3>
+    <div class="flex flex-col items-center gap-8 lg:gap-12 lg:flex-row lg:justify-center">
+      <img
+        src={logoEmbraer.src}
+        alt="Embraer"
+        class="w-4/5 sm:w-auto sm:h-16 lg:h-22 object-contain"
+      />
+      <div class="hidden h-20 lg:h-26 w-px bg-slate-200 lg:block"></div>
+      <img
+        src={logoTelebras.src}
+        alt="Telebras"
+        class="w-4/5 sm:w-auto sm:h-20 lg:h-26 object-contain"
+      />
+    </div>
+  </Section>
+  <SectionDivider />
+  <Section>
+    <h2 class={SectionTitle}>Oi tudo bem</h2>
+  </Section>
 </Root>
