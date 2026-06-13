@@ -1,10 +1,13 @@
 ---
 import Root from "@/components/Root.astro";
-import { Image } from "astro:assets";
-import BannerImage from "@/assets/images/banner.png";
+import { Banner } from "@/components/Banner";
+import { sanityClient } from "@/sanity/client";
+import { BANNER_CAROUSEL_QUERY, type BannerCarousel } from "@/sanity/schemas/Home/BannerCarousel/data";
+
+const slides: BannerCarousel[] = await sanityClient.fetch(BANNER_CAROUSEL_QUERY, {}, { perspective: "published" });
 ---
 
 <Root title="Home">
-  <Image src={BannerImage} alt="Banner" class="h-screen w-full object-cover" />
+  <Banner slides={slides} client:load />
   <div class="bg-slate-950 h-400" />
 </Root>
