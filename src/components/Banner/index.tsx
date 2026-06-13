@@ -4,7 +4,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { Button } from "@/components/Button";
 import { cn } from "@/utils/className";
 import { container } from "@/constants/layout";
-import type { BannerCarousel } from "@/sanity/schemas/Home/BannerCarousel/data";
+import type { BannerCarouselSlide } from "@/sanity/schemas/Home/BannerCarousel/data";
 
 const DURATION = 600;
 const INTERVAL = 8000;
@@ -41,7 +41,7 @@ function slideAnimation(index: number, state: SlideState): React.CSSProperties {
 }
 
 interface Props {
-  slides: BannerCarousel[];
+  slides: BannerCarouselSlide[];
 }
 
 export function Banner({ slides }: Props) {

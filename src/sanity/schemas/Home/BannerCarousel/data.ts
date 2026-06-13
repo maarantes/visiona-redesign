@@ -1,4 +1,4 @@
-export interface BannerCarousel {
+export interface BannerCarouselSlide {
   titleBefore: string;
   highlight: {
     icon: string;

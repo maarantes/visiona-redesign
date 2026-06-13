@@ -1,13 +1,19 @@
 ---
 import Root from "@/components/Root.astro";
 import { Banner } from "@/components/Banner";
+import { LogoCarousel } from "@/components/LogoCarousel";
 import { sanityClient } from "@/sanity/client";
-import { BANNER_CAROUSEL_QUERY, type BannerCarousel } from "@/sanity/schemas/Home/BannerCarousel/data";
+import { BANNER_CAROUSEL_QUERY, type BannerCarouselSlide } from "@/sanity/schemas/Home/BannerCarousel/data";
+import { LOGO_CAROUSEL_QUERY, type LogoCarousel as LogoCarouselItem } from "@/sanity/schemas/Home/LogoCarousel/data";
 
-const slides: BannerCarousel[] = await sanityClient.fetch(BANNER_CAROUSEL_QUERY, {}, { perspective: "published" });
+const [slides, logos] = await Promise.all([
+  sanityClient.fetch<BannerCarouselSlide[]>(BANNER_CAROUSEL_QUERY, {}, { perspective: "published" }),
+  sanityClient.fetch<LogoCarouselItem[]>(LOGO_CAROUSEL_QUERY, {}, { perspective: "published" }),
+]);
 ---
 
 <Root title="Home">
   <Banner slides={slides} client:load />
-  <div class="bg-slate-950 h-400" />
+  <LogoCarousel logos={logos} />
+  <div class=" h-400" />
 </Root>

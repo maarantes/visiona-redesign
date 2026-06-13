@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 export const bannerCarouselSchema = defineType({
   name: "bannerCarousel",
-  title: "Banner Carousel",
+  title: "Hero Banner",
   type: "document",
   fields: [
     defineField({ name: "order", title: "Ordem", type: "number" }),
