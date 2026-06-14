@@ -7,7 +7,7 @@ import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { MobileMenuButton, MobileMenuDropdown } from "./MobileMenu";
 import { Submenu } from "./Submenu";
-import { navLinks, contactSubmenuData } from "@/types/Navbar";
+import { navLinks, contactSubmenuData } from "@/data/navbar";
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

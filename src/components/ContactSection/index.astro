@@ -1,0 +1,55 @@
+---
+import Section from "@/components/Section/index.astro";
+import contactBg from "@/assets/images/contact-background.png";
+import contactDecoration from "@/assets/images/contact-decoration.svg";
+import { Icon } from "../Icon";
+import { Button } from "@/components/Button";
+---
+
+<Section backgroundImage={contactBg.src}>
+  <div
+    class="w-full flex flex-col lg:flex-row items-center max-lg:text-center lg:justify-between gap-15 lg:gap-20"
+  >
+    <h2
+      class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white leading-tight lg:w-3/4"
+    >
+      Descubra como é possível aplicar tecnologia espacial em
+      <span class="relative inline-block">
+        diversos segmentos
+        <img
+          src={contactDecoration.src}
+          alt=""
+          aria-hidden="true"
+          id="contact-underline"
+          class="absolute top-full left-0 mt-1 w-full"
+          style="clip-path: inset(0 100% 0 0);"
+        />
+      </span>
+    </h2>
+
+    <div class="shrink-0">
+      <a href="/contato">
+        <Button size="lg" client:load>
+          Entre em Contato
+          <Icon name="arrow-right" />
+        </Button>
+      </a>
+    </div>
+  </div>
+</Section>
+
+<script>
+  const underline = document.getElementById("contact-underline");
+  if (underline) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          underline.style.animation = "reveal-left-to-right 0.5s ease forwards";
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5, rootMargin: "0px 0px -20% 0px" },
+    );
+    observer.observe(underline.parentElement!);
+  }
+</script>

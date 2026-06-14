@@ -23,6 +23,7 @@ import {
   IconMessageCircle,
   IconBriefcase,
   IconArrowUpRight,
+  IconArrowRight,
 } from "@tabler/icons-react";
 
 export const iconMap = {
@@ -49,6 +50,7 @@ export const iconMap = {
   camera: IconCamera,
   message: IconMessageCircle,
   briefcase: IconBriefcase,
+  "arrow-right": IconArrowRight,
   "arrow-up-right": IconArrowUpRight
 
 } as const;

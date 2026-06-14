@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/utils/className";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
-import { type NavLink, contactSubmenuData } from "@/types/Navbar";
+import { type NavLink, contactSubmenuData } from "@/data/navbar";
 import { SubmenuItem } from "./Submenu/SubmenuItem";
 
 interface MobileMenuButtonProps {

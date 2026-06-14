@@ -4,6 +4,7 @@ import submenuPress from "@/assets/images/submenu-press.png";
 import submenuProducts from "@/assets/images/submenu-products.png";
 import submenuSolutions from "@/assets/images/submenu-solutions.png";
 import submenuContact from "@/assets/images/submenu-contact.jpg";
+import { pages } from "@/data/pages";
 
 export type NavLink = {
   name: string;
@@ -24,33 +25,28 @@ export const navLinks: NavLink[] = [
       items: [
         {
           icon: "rocket",
-          title: "Integração de Sistemas Espaciais",
+          ...pages.engineering.systemsIntegration,
           subtitle: "Do projeto ao lançamento",
-          href: "#",
         },
         {
           icon: "satellite",
-          title: "Plataforma VCUB",
+          ...pages.engineering.vcub,
           subtitle: "Nanosatélites brasileiros",
-          href: "#",
         },
         {
           icon: "planet",
-          title: "Operações Espaciais",
+          ...pages.engineering.spaceOps,
           subtitle: "Controle e monitoramento orbital",
-          href: "#",
         },
         {
           icon: "wifi",
-          title: "Programa SGDC",
+          ...pages.engineering.sgdc,
           subtitle: "Conectividade e soberania",
-          href: "#",
         },
         {
           icon: "cpu",
-          title: "Software Embarcado",
+          ...pages.engineering.embeddedSoftware,
           subtitle: "Navegação, controle e comunicação",
-          href: "#",
         },
       ],
     },
@@ -66,21 +62,18 @@ export const navLinks: NavLink[] = [
       items: [
         {
           icon: "building",
-          title: "Soluções para Municípios",
+          ...pages.solutions.municipalities,
           subtitle: "Gestão urbana com satélites",
-          href: "#",
         },
         {
           icon: "lightning",
-          title: "Soluções para Energia",
+          ...pages.solutions.energy,
           subtitle: "Monitoramento inteligente de ativos",
-          href: "#",
         },
         {
           icon: "image-plus",
-          title: "Imagens como Serviço",
+          ...pages.solutions.imagingAsService,
           subtitle: "Dados geoespaciais para negócios",
-          href: "#",
         },
       ],
     },
@@ -96,38 +89,33 @@ export const navLinks: NavLink[] = [
       items: [
         {
           icon: "desktop-search",
-          title: "Plataforma WebVis",
+          ...pages.products.webvis,
           subtitle: "Inteligência em dados espaciais",
-          href: "#",
         },
         {
           icon: "satellite",
-          title: "Plataforma VCUB",
+          ...pages.products.vcub,
           subtitle: "Nanosatélites brasileiros",
-          href: "#",
         },
         {
           icon: "image",
-          title: "Imagens Satelitais",
+          ...pages.products.satelliteImages,
           subtitle: "Soluções em observação terrestre",
-          href: "#",
         },
         {
           icon: "globe",
-          title: "Comunicação por Satélite",
+          ...pages.products.satelliteCommunication,
           subtitle: "Banda larga e IoT",
-          href: "#",
         },
         {
           icon: "radar",
-          title: "Aerolevantamento Radar",
+          ...pages.products.radarSurvey,
           subtitle: "Mapeamento nas bandas X e P",
-          href: "#",
         },
       ],
     },
   },
-  { name: "Quem Somos", href: "#", hasSubmenu: false },
+  { name: pages.about.title, href: pages.about.href, hasSubmenu: false },
   {
     name: "Imprensa",
     hasSubmenu: true,
@@ -139,15 +127,13 @@ export const navLinks: NavLink[] = [
       items: [
         {
           icon: "book",
-          title: "Imprensa",
+          ...pages.press.news,
           subtitle: "Notícias, eventos e comunicados",
-          href: "#",
         },
         {
           icon: "camera",
-          title: "Galeria de imagens",
+          ...pages.press.gallery,
           subtitle: "Bastidores da tecnologia espacial",
-          href: "#",
         },
       ],
     },
@@ -162,15 +148,13 @@ export const contactSubmenuData: SubmenuData = {
   items: [
     {
       icon: "message",
-      title: "Fale Conosco",
+      ...pages.contact.talkToUs,
       subtitle: "Tire dúvidas com nossa equipe",
-      href: "#",
     },
     {
       icon: "briefcase",
-      title: "Junte-se a nós",
+      ...pages.contact.careers,
       subtitle: "Vagas e oportunidades de carreira",
-      href: "#",
     },
   ],
 };

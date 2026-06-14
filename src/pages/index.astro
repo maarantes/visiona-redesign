@@ -3,7 +3,7 @@ import Root from "@/components/Root.astro";
 import { Banner } from "@/components/Banner";
 import LogoCarousel from "@/components/LogoCarousel/index.astro";
 import Section from "@/components/Section/index.astro";
-import { sanityClient } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/client";
 import {
   BANNER_CAROUSEL_QUERY,
   type BannerCarouselSlide,
@@ -26,24 +26,25 @@ import {
   SOLUTION_CARDS_QUERY,
   type SolutionCard,
 } from "@/sanity/schemas/Home/SolutionCards/data";
+import ContactSection from "@/components/ContactSection/index.astro";
 
 const [slides, logos, cards, clients] = await Promise.all([
-  sanityClient.fetch<BannerCarouselSlide[]>(
+  sanityFetch<BannerCarouselSlide[]>(
     BANNER_CAROUSEL_QUERY,
     {},
     { perspective: "published" },
   ),
-  sanityClient.fetch<LogoCarouselItem[]>(
+  sanityFetch<LogoCarouselItem[]>(
     LOGO_CAROUSEL_QUERY,
     {},
     { perspective: "published" },
   ),
-  sanityClient.fetch<SolutionCard[]>(
+  sanityFetch<SolutionCard[]>(
     SOLUTION_CARDS_QUERY,
     {},
     { perspective: "published" },
   ),
-  sanityClient.fetch<ClientItem[]>(
+  sanityFetch<ClientItem[]>(
     CLIENT_LIST_QUERY,
     {},
     { perspective: "published" },
@@ -89,14 +90,14 @@ const [slides, logos, cards, clients] = await Promise.all([
     </div>
   </Section>
   <SectionDivider />
-  <Section>
+  <Section noPbMobile>
     <h2 class="section-title">
       <span class="text-primary">Inovação tecnológica</span> aplicada para mudar negócios
     </h2>
     <p class="section-subtitle">Conheça nossas principais soluções:</p>
     <SolutionCards cards={cards} />
   </Section>
-  <Section secondary>
+  <Section secondary noPbMobile>
     <h2 class="section-title">
       Clientes que
       <span class="text-primary">confiam</span> no nosso trabalho
@@ -106,4 +107,5 @@ const [slides, logos, cards, clients] = await Promise.all([
     </p>
     <ClientList clients={clients} client:load />
   </Section>
+  <ContactSection />
 </Root>
