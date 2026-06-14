@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { svgField, linkField } from "@/sanity/fields";
 
 export const bannerCarouselSchema = defineType({
   name: "bannerCarousel",
@@ -16,7 +17,7 @@ export const bannerCarouselSchema = defineType({
       title: "Destaque",
       type: "object",
       fields: [
-        defineField({ name: "icon", title: "Ícone (SVG)", type: "text", description: "Cole o código SVG do ícone (Tabler Icons)" }),
+        svgField,
         defineField({ name: "text", title: "Texto", type: "string" }),
       ],
     }),
@@ -32,7 +33,7 @@ export const bannerCarouselSchema = defineType({
       type: "object",
       fields: [
         defineField({ name: "text", title: "Texto", type: "string" }),
-        defineField({ name: "href", title: "Link", type: "string" }),
+        linkField("href", "Link"),
       ],
     }),
     defineField({ name: "image", title: "Imagem de Fundo", type: "image" }),

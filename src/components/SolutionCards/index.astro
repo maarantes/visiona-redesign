@@ -2,6 +2,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import type { SolutionCard } from "@/sanity/schemas/Home/SolutionCards/data";
 import { Icon } from "../Icon";
+import { sanityImageSrcSet } from "@/sanity/image";
 
 interface Props {
   cards: SolutionCard[];
@@ -15,7 +16,9 @@ const { cards } = Astro.props;
     cards.map((card) => (
       <article class="group relative overflow-hidden flex flex-col md:min-h-0 md:aspect-square xl:aspect-2/3">
         <img
-          src={`${card.image}?w=1600&auto=format`}
+          src={`${card.image}?w=800&auto=format`}
+          srcset={sanityImageSrcSet(card.image)}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
           alt={card.title}
           class="absolute inset-0 h-full w-full object-cover"
           loading="lazy"

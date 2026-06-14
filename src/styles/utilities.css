@@ -3,11 +3,15 @@
 }
 
 @media (min-width: 640px) {
-  :root { --container-px: 1.5rem; }
+  :root {
+    --container-px: 1.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
-  :root { --container-px: 2rem; }
+  :root {
+    --container-px: 2rem;
+  }
 }
 
 @utility section-container {
@@ -28,3 +32,4 @@
   margin-right: calc(-1 * var(--container-px));
   width: calc(100% + 2 * var(--container-px));
 }
+

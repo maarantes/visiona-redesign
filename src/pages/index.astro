@@ -12,17 +12,42 @@ import {
   LOGO_CAROUSEL_QUERY,
   type LogoCarousel as LogoCarouselItem,
 } from "@/sanity/schemas/Home/LogoCarousel/data";
+import {
+  CLIENT_LIST_QUERY,
+  type ClientItem,
+} from "@/sanity/schemas/Home/LogoCarousel/clientList";
+import { ClientList } from "@/components/ClientList";
 import flagBrazil from "@/assets/images/flag-brazil.png";
 import logoEmbraer from "@/assets/images/logo-embraer.png";
 import logoTelebras from "@/assets/images/logo-telebras.png";
 import SectionDivider from "@/components/SectionDivider.astro";
 import SolutionCards from "@/components/SolutionCards/index.astro";
-import { SOLUTION_CARDS_QUERY, type SolutionCard } from "@/sanity/schemas/Home/SolutionCards/data";
+import {
+  SOLUTION_CARDS_QUERY,
+  type SolutionCard,
+} from "@/sanity/schemas/Home/SolutionCards/data";
 
-const [slides, logos, cards] = await Promise.all([
-  sanityClient.fetch<BannerCarouselSlide[]>(BANNER_CAROUSEL_QUERY, {}, { perspective: "published" }),
-  sanityClient.fetch<LogoCarouselItem[]>(LOGO_CAROUSEL_QUERY, {}, { perspective: "published" }),
-  sanityClient.fetch<SolutionCard[]>(SOLUTION_CARDS_QUERY, {}, { perspective: "published" }),
+const [slides, logos, cards, clients] = await Promise.all([
+  sanityClient.fetch<BannerCarouselSlide[]>(
+    BANNER_CAROUSEL_QUERY,
+    {},
+    { perspective: "published" },
+  ),
+  sanityClient.fetch<LogoCarouselItem[]>(
+    LOGO_CAROUSEL_QUERY,
+    {},
+    { perspective: "published" },
+  ),
+  sanityClient.fetch<SolutionCard[]>(
+    SOLUTION_CARDS_QUERY,
+    {},
+    { perspective: "published" },
+  ),
+  sanityClient.fetch<ClientItem[]>(
+    CLIENT_LIST_QUERY,
+    {},
+    { perspective: "published" },
+  ),
 ]);
 ---
 
@@ -70,5 +95,15 @@ const [slides, logos, cards] = await Promise.all([
     </h2>
     <p class="section-subtitle">Conheça nossas principais soluções:</p>
     <SolutionCards cards={cards} />
+  </Section>
+  <Section secondary>
+    <h2 class="section-title">
+      Clientes que
+      <span class="text-primary">confiam</span> no nosso trabalho
+    </h2>
+    <p class="section-subtitle">
+      Parcerias que impulsionam inovação e resultados
+    </p>
+    <ClientList clients={clients} client:load />
   </Section>
 </Root>
