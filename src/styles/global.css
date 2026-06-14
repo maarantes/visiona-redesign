@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./animations.css";
+@import "./utilities.css";
 
 @font-face {
   font-family: "Jost";
@@ -40,7 +41,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 
 @theme {
   --font-sans: "Jost", sans-serif;

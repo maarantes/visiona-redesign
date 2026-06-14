@@ -3,7 +3,6 @@ import logoVisionaColor from "@/assets/images/logo-color.svg";
 import logoVisionaWhite from "@/assets/images/logo-white.svg";
 import flagBrazil from "@/assets/images/flag-brazil.png";
 import { cn } from "@/utils/className";
-import { Container } from "@/constants/layout";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
 import { MobileMenuButton, MobileMenuDropdown } from "./MobileMenu";
@@ -36,7 +35,7 @@ export function Navbar() {
         isSolid ? "bg-white shadow-sm" : "bg-transparent",
       )}
     >
-      <div className={Container}>
+      <div className="section-container">
         <div className="flex justify-between items-center h-20 transition-all duration-300">
           <div className="shrink-0 flex items-center">
             <img

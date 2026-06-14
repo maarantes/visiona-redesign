@@ -3,7 +3,6 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import DOMPurify from "isomorphic-dompurify";
 import { Button } from "@/components/Button";
 import { cn } from "@/utils/className";
-import { Container } from "@/constants/layout";
 import type { BannerCarouselSlide } from "@/sanity/schemas/Home/BannerCarousel/data";
 
 const DURATION = 600;
@@ -133,11 +132,16 @@ export function Banner({ slides }: Props) {
           <div className="absolute inset-0 bg-black/20" />
 
           <div className="absolute inset-0 flex items-center">
-            <div className={cn("w-full", Container)}>
+            <div className="w-full section-container">
               <div className="w-full lg:w-2/3">
                 <p className="text-2xl sm:text-5xl leading-tight font-semibold text-white xl:text-6xl">
                   {slide.titleBefore}{" "}
-                  <span className="inline-flex items-center gap-2 lg:gap-4 rounded bg-white px-2 lg:px-4 py-0 sm:py-1 align-middle uppercase text-3xl text-slate-900 xl:text-5xl">
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-2 lg:gap-4 rounded bg-white px-2 lg:px-4 py-0 sm:py-1 align-middle uppercase text-3xl text-slate-900 xl:text-5xl",
+                      /^[,:]/.test(slide.titleAfter) && "mr-1",
+                    )}
+                  >
                     <span
                       className="size-6 sm:size-9 lg:size-14 shrink-0 [&>svg]:h-full [&>svg]:w-full"
                       dangerouslySetInnerHTML={{
@@ -149,7 +153,8 @@ export function Banner({ slides }: Props) {
                     <span className="text-2xl sm:text-5xl xl:text-6xl font-semibold">
                       {slide.highlight.text}
                     </span>
-                  </span>{" "}
+                  </span>
+                  {/^[,:]/.test(slide.titleAfter) ? "" : " "}
                   {slide.titleAfter}
                 </p>
 
@@ -170,7 +175,7 @@ export function Banner({ slides }: Props) {
       ))}
 
       <div className="absolute bottom-8 z-20 w-full">
-        <div className={cn(Container, "flex items-center justify-between")}>
+        <div className="section-container flex items-center justify-between">
           <button
             onClick={() => navigate("right")}
             aria-label="Slide anterior"
