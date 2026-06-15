@@ -27,6 +27,9 @@ import {
   type SolutionCard,
 } from "@/sanity/schemas/Home/SolutionCards/data";
 import ContactSection from "@/components/ContactSection/index.astro";
+import DuoSection from "@/components/Section/DuoSection.astro";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
 
 const [slides, logos, cards, clients] = await Promise.all([
   sanityFetch<BannerCarouselSlide[]>(
@@ -58,37 +61,44 @@ const [slides, logos, cards, clients] = await Promise.all([
 >
   <Banner slides={slides} client:load />
   <LogoCarousel logos={logos} />
-  <Section>
-    <h1 class="section-title">
-      A integradora
-      <img
-        src={flagBrazil.src}
-        alt="Bandeira do Brasil"
-        class="inline h-5 lg:h-10 -mt-1 lg:-mt-2"
-      />
-      <span class="text-[#009440]">brasileira</span> de sistemas espaciais
-    </h1>
-    <p class="section-subtitle">
-      Resultante de uma iniciativa única do Governo brasileiro de estimular a
-      criação de uma empresa integradora na indústria espacial, a Visiona é uma
-      joint-venture entre a Embraer Defesa & Segurança e a Telebras.
-    </p>
+  <DuoSection>
+    <div slot="left" class="flex flex-col gap-4 sm:gap-8">
+      <h1 class="section-duo-title">
+        A integradora
+        <img
+          src={flagBrazil.src}
+          alt="Bandeira do Brasil"
+          class="inline h-5 lg:h-8 -mt-1 lg:-mt-2"
+        />
+        <span class="text-[#009440]">brasileira</span> de sistemas espaciais
+      </h1>
+      <p class="section-description">
+        Resultante de uma iniciativa única do Governo brasileiro de estimular a
+        criação de uma empresa integradora na indústria espacial, a Visiona é
+        uma joint-venture entre a Embraer Defesa & Segurança e a Telebras.
+      </p>
+      <Button size="lg" className="lg:self-start">
+        Conheça nossa história
+        <Icon name="arrow-right" />
+      </Button>
+    </div>
     <div
-      class="flex flex-col items-center gap-8 lg:gap-12 lg:flex-row lg:justify-center"
+      slot="right"
+      class="w-full h-full bg-slate-50 rounded-2xl flex flex-col items-center justify-center gap-12 p-10"
     >
       <img
         src={logoEmbraer.src}
         alt="Embraer"
-        class="w-4/5 sm:w-auto sm:h-16 lg:h-22 object-contain"
+        class="w-full max-w-80 object-contain"
       />
-      <div class="hidden h-20 lg:h-26 w-px bg-slate-200 lg:block"></div>
+      <div class="w-3/4 h-px bg-slate-200"></div>
       <img
         src={logoTelebras.src}
         alt="Telebras"
-        class="w-4/5 sm:w-auto sm:h-20 lg:h-26 object-contain"
+        class="w-full max-w-80 object-contain"
       />
     </div>
-  </Section>
+  </DuoSection>
   <SectionDivider />
   <Section noPbMobile>
     <h2 class="section-title">

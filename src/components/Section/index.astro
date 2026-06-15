@@ -12,8 +12,8 @@ const { secondary, backgroundImage, noPbMobile } = Astro.props;
 
 <section
   class={cn(
-    "relative w-full sm:py-16 lg:py-32",
-    noPbMobile ? "pt-8" : "py-8",
+    "section-wrapper",
+    noPbMobile && "max-sm:pb-0",
     secondary && !backgroundImage && "bg-slate-50",
   )}
   style={backgroundImage
