@@ -1,0 +1,25 @@
+---
+import Section from "@/components/Layout/Section/index.astro";
+import { sanityFetch } from "@/sanity/client";
+import {
+  type ClientItem,
+  CLIENT_LIST_QUERY,
+} from "@/sanity/schemas/Home/Clients/data";
+import { ClientList } from "./ClientList";
+
+const clients = await sanityFetch<ClientItem[]>(
+  CLIENT_LIST_QUERY,
+  {},
+  { perspective: "published" },
+);
+---
+
+<Section secondary noPbMobile>
+  <h2 class="section-title">
+    Clientes que <span class="text-primary">confiam</span> no nosso trabalho
+  </h2>
+  <p class="section-subtitle">
+    Parcerias que impulsionam inovação e resultados
+  </p>
+  <ClientList clients={clients} client:load />
+</Section>

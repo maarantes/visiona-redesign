@@ -1,121 +1,23 @@
 ---
-import Root from "@/components/Root.astro";
-import { Banner } from "@/components/Banner";
-import LogoCarousel from "@/components/LogoCarousel/index.astro";
-import Section from "@/components/Section/index.astro";
-import { sanityFetch } from "@/sanity/client";
-import {
-  BANNER_CAROUSEL_QUERY,
-  type BannerCarouselSlide,
-} from "@/sanity/schemas/Home/BannerCarousel/data";
-import {
-  LOGO_CAROUSEL_QUERY,
-  type LogoCarousel as LogoCarouselItem,
-} from "@/sanity/schemas/Home/LogoCarousel/data";
-import {
-  CLIENT_LIST_QUERY,
-  type ClientItem,
-} from "@/sanity/schemas/Home/LogoCarousel/clientList";
-import { ClientList } from "@/components/ClientList";
-import flagBrazil from "@/assets/images/flag-brazil.png";
-import logoEmbraer from "@/assets/images/logo-embraer.png";
-import logoTelebras from "@/assets/images/logo-telebras.png";
-import SectionDivider from "@/components/SectionDivider.astro";
-import SolutionCards from "@/components/SolutionCards/index.astro";
-import {
-  SOLUTION_CARDS_QUERY,
-  type SolutionCard,
-} from "@/sanity/schemas/Home/SolutionCards/data";
-import ContactSection from "@/components/ContactSection/index.astro";
-import DuoSection from "@/components/Section/DuoSection.astro";
-import { Button } from "@/components/Button";
-import { Icon } from "@/components/Icon";
-
-const [slides, logos, cards, clients] = await Promise.all([
-  sanityFetch<BannerCarouselSlide[]>(
-    BANNER_CAROUSEL_QUERY,
-    {},
-    { perspective: "published" },
-  ),
-  sanityFetch<LogoCarouselItem[]>(
-    LOGO_CAROUSEL_QUERY,
-    {},
-    { perspective: "published" },
-  ),
-  sanityFetch<SolutionCard[]>(
-    SOLUTION_CARDS_QUERY,
-    {},
-    { perspective: "published" },
-  ),
-  sanityFetch<ClientItem[]>(
-    CLIENT_LIST_QUERY,
-    {},
-    { perspective: "published" },
-  ),
-]);
+import Root from "@/components/Layout/Root.astro";
+import SectionDivider from "@/components/Layout/SectionDivider.astro";
+import HeroBanner from "@/components/Sections/HeroBanner/index.astro";
+import LogoCarousel from "@/components/Sections/LogoCarousel.astro";
+import Introduction from "@/components/Sections/Introduction.astro";
+import Solutions from "@/components/Sections/Solutions/index.astro";
+import Clients from "@/components/Sections/Clients/index.astro";
+import Contact from "@/components/Sections/Contact.astro";
 ---
 
 <Root
   title="Home"
   description="Visiona é a integradora brasileira de sistemas espaciais, uma joint-venture entre a Embraer e Telebras."
 >
-  <Banner slides={slides} client:load />
-  <LogoCarousel logos={logos} />
-  <DuoSection>
-    <div slot="left" class="flex flex-col gap-4 sm:gap-8">
-      <h1 class="section-duo-title">
-        A integradora
-        <img
-          src={flagBrazil.src}
-          alt="Bandeira do Brasil"
-          class="inline h-5 lg:h-8 -mt-1 lg:-mt-2"
-        />
-        <span class="text-[#009440]">brasileira</span> de sistemas espaciais
-      </h1>
-      <p class="section-description">
-        Resultante de uma iniciativa única do Governo brasileiro de estimular a
-        criação de uma empresa integradora na indústria espacial, a Visiona é
-        uma joint-venture entre a Embraer Defesa & Segurança e a Telebras.
-      </p>
-      <Button size="lg" className="lg:self-start">
-        Conheça nossa história
-        <Icon name="arrow-right" />
-      </Button>
-    </div>
-    <div
-      slot="right"
-      class="w-full h-full bg-slate-50 rounded-2xl flex flex-col items-center justify-center gap-12 p-10"
-    >
-      <img
-        src={logoEmbraer.src}
-        alt="Embraer"
-        class="w-full max-w-80 object-contain"
-      />
-      <div class="w-3/4 h-px bg-slate-200"></div>
-      <img
-        src={logoTelebras.src}
-        alt="Telebras"
-        class="w-full max-w-80 object-contain"
-      />
-    </div>
-  </DuoSection>
+  <HeroBanner />
+  <LogoCarousel />
+  <Introduction />
   <SectionDivider />
-  <Section noPbMobile>
-    <h2 class="section-title">
-      <span class="text-primary">Inovação tecnológica</span> aplicada para mudar negócios
-    </h2>
-    <p class="section-subtitle">Conheça nossas principais soluções:</p>
-    <SolutionCards cards={cards} />
-  </Section>
-  <Section secondary noPbMobile>
-    <h2 class="section-title">
-      Clientes que
-      <span class="text-primary">confiam</span> no nosso trabalho
-    </h2>
-    <p class="section-subtitle">
-      Parcerias que impulsionam inovação e resultados
-    </p>
-    <ClientList clients={clients} client:load />
-  </Section>
-  <ContactSection />
+  <Solutions />
+  <Clients />
+  <Contact />
 </Root>

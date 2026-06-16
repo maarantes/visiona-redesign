@@ -1,0 +1,16 @@
+---
+import { Banner } from "./Banner";
+import { sanityFetch } from "@/sanity/client";
+import {
+  BANNER_CAROUSEL_QUERY,
+  type BannerCarouselSlide,
+} from "@/sanity/schemas/Home/BannerCarousel/data";
+
+const slides = await sanityFetch<BannerCarouselSlide[]>(
+  BANNER_CAROUSEL_QUERY,
+  {},
+  { perspective: "published" },
+);
+---
+
+<Banner slides={slides} client:load />

@@ -3,8 +3,8 @@ import { cn } from "@/utils/className";
 import {
   SEGMENTS,
   type SegmentValue,
-} from "@/sanity/schemas/Home/LogoCarousel/segments";
-import type { ClientItem } from "@/sanity/schemas/Home/LogoCarousel/clientList";
+} from "@/sanity/schemas/Home/Clients/segments";
+import type { ClientItem } from "@/sanity/schemas/Home/Clients/data";
 
 interface Props {
   clients: ClientItem[];

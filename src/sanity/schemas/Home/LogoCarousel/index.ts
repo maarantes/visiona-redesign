@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { SEGMENTS } from "./segments";
+import { SEGMENTS } from "../Clients/segments";
 
 export const logoCarouselSchema = defineType({
   name: "logoCarousel",
@@ -12,7 +12,9 @@ export const logoCarouselSchema = defineType({
       title: "Segmento",
       type: "string",
       validation: (Rule) => Rule.required(),
-      options: { list: SEGMENTS.map((s) => ({ title: s.title, value: s.value })) },
+      options: {
+        list: SEGMENTS.map((s) => ({ title: s.title, value: s.value })),
+      },
     }),
     defineField({ name: "image", title: "Logotipo", type: "image" }),
   ],

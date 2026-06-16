@@ -22,20 +22,22 @@
   @apply max-w-400 mx-auto px-(--container-px);
 }
 
+/* Section */
 @utility section-title {
   @apply text-3xl lg:text-5xl text-center font-semibold text-slate-900;
-}
-
-@utility section-duo-title {
-  @apply text-3xl lg:text-[44px] text-center lg:text-left font-semibold text-slate-900;
 }
 
 @utility section-subtitle {
   @apply text-lg lg:text-xl xl:text-2xl text-center text-slate-500 max-w-full lg:max-w-2/3 pb-3;
 }
 
-@utility section-description {
-  @apply text-lg lg:text-xl max-lg:text-center lg:leading-loose text-slate-500 pb-2
+/* Duo Section */
+@utility section-duo-title {
+  @apply text-3xl lg:text-[44px] text-center lg:text-left font-semibold text-slate-900;
+}
+
+@utility section-duo-description {
+  @apply text-lg lg:text-xl max-lg:text-center lg:leading-loose text-slate-500 pb-2;
 }
 
 /* Ignore section-container horizontal padding */

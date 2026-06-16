@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import type React from "react";
 
 const DURATION = 600;
-export const INTERVAL = 8000;
+export const INTERVAL = 10000;
 
 type Direction = "left" | "right";
 
