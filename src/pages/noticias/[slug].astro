@@ -33,9 +33,7 @@ const pageUrl = Astro.url.href;
 ---
 
 <Root title={post.title}>
-  <div
-    class="relative h-64 sm:h-80 lg:h-96 w-full overflow-hidden bg-slate-900"
-  >
+  <div class="relative h-auto lg:h-96 w-full overflow-hidden bg-slate-900">
     {
       post.image && (
         <img
@@ -48,9 +46,11 @@ const pageUrl = Astro.url.href;
     }
     <div class="absolute inset-0 bg-linear-to-t from-black/60 to-black/30">
     </div>
-    <div class="absolute inset-x-0 bottom-0 section-container pb-8 sm:pb-10">
+    <div
+      class="relative lg:absolute lg:inset-x-0 lg:bottom-0 section-container pb-8 sm:pb-10"
+    >
       <p
-        class="text-sm sm:text-lg font-medium text-white/70 mb-2 max-w-5xl mx-auto"
+        class="text-sm sm:text-lg font-medium text-white/70 mb-2 pt-32 lg:pt-0 max-w-5xl mx-auto"
       >
         {formattedDate}
       </p>

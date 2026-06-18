@@ -9,11 +9,11 @@ import { MobileMenuButton, MobileMenuDropdown } from "./MobileMenu";
 import { Submenu } from "./Submenu";
 import { navLinks, contactSubmenuData } from "@/data/navbar";
 
-interface NavbarProps {
+interface Props {
   submenuImages?: Record<string, string>;
 }
 
-export function Navbar({ submenuImages }: NavbarProps) {
+export function Navbar({ submenuImages }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
@@ -46,7 +46,7 @@ export function Navbar({ submenuImages }: NavbarProps) {
       )}
     >
       <div className="section-container">
-        <div className="flex justify-between items-center h-20 transition-all duration-300">
+        <div className="flex justify-between items-center h-16 xl:h-20 transition-all duration-300">
           <div className="shrink-0 flex items-center">
             <a
               href="/"
