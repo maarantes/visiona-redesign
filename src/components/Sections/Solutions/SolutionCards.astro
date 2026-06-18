@@ -18,7 +18,7 @@ const { cards } = Astro.props;
     cards.map((card) => (
       <article class="group relative overflow-hidden flex flex-col md:min-h-0 md:aspect-square xl:aspect-2/3">
         <img
-          src={`${card.image}?w=800&auto=format`}
+          src={`${card.image}?w=800&auto=format&q=90`}
           srcset={sanityImageSrcSet(card.image)}
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
           alt={card.title}

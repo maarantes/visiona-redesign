@@ -22,9 +22,15 @@ import LogoText from "./LogoText.astro";
                 <li>
                   <a
                     href={link.href}
-                    class="text-[15px] text-slate-400 hover:text-white"
+                    class="group inline-flex items-center gap-1 text-[15px] text-slate-400 hover:text-white"
                   >
                     {link.title}
+                    <Icon
+                      name="arrow-up-right"
+                      size={16}
+                      stroke={2}
+                      className="opacity-0 -translate-x-2 translate-y-2 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
+                    />
                   </a>
                 </li>
               ))}

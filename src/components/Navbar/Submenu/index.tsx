@@ -3,7 +3,7 @@ import { type SubmenuItemProps, SubmenuItem } from "./SubmenuItem";
 import { useEffect, useState } from "react";
 
 export type SubmenuData = {
-  image: string;
+  image?: string;
   items: SubmenuItemProps[];
   imagePosition?: "left" | "right";
   imageWidth?: "lg" | "sm";
@@ -44,11 +44,13 @@ export function Submenu({ activeSubmenu, data }: Props) {
         )}
       >
         <div className={cn("shrink-0 bg-slate-100", imageWidthClass)}>
-          <img
-            src={cachedData?.image}
-            alt={activeSubmenu || "Imagem do submenu"}
-            className="w-full h-full object-cover"
-          />
+          {cachedData?.image && (
+            <img
+              src={cachedData.image}
+              alt={activeSubmenu || "Imagem do submenu"}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
 
         <div className="flex-1 p-2 bg-white overflow-y-auto">

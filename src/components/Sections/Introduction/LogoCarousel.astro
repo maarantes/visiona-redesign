@@ -3,7 +3,7 @@ import { sanityFetch } from "@/sanity/client";
 import {
   LOGO_CAROUSEL_QUERY,
   type LogoCarousel,
-} from "@/sanity/schemas/Home/LogoCarousel/data";
+} from "@/sanity/schemas/Shared/Clients/data";
 
 const logos = await sanityFetch<LogoCarousel[]>(
   LOGO_CAROUSEL_QUERY,

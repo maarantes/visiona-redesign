@@ -1,9 +1,4 @@
 import type { SubmenuData } from "@/components/Navbar/Submenu";
-import submenuEngineering from "@/assets/images/submenu-engineering.png";
-import submenuPress from "@/assets/images/submenu-press.png";
-import submenuProducts from "@/assets/images/submenu-products.png";
-import submenuSolutions from "@/assets/images/submenu-solutions.png";
-import submenuContact from "@/assets/images/submenu-contact.jpg";
 import { pages } from "@/data/pages";
 
 export type NavLink = {
@@ -18,7 +13,6 @@ export const navLinks: NavLink[] = [
     name: "Engenharia",
     hasSubmenu: true,
     submenuData: {
-      image: submenuEngineering.src,
       imagePosition: "left",
       imageWidth: "sm",
       columns: 2,
@@ -55,7 +49,6 @@ export const navLinks: NavLink[] = [
     name: "Soluções",
     hasSubmenu: true,
     submenuData: {
-      image: submenuSolutions.src,
       imagePosition: "left",
       imageWidth: "sm",
       columns: 2,
@@ -82,7 +75,6 @@ export const navLinks: NavLink[] = [
     name: "Produtos e Serviços",
     hasSubmenu: true,
     submenuData: {
-      image: submenuProducts.src,
       imagePosition: "left",
       imageWidth: "sm",
       columns: 2,
@@ -120,7 +112,6 @@ export const navLinks: NavLink[] = [
     name: "Imprensa",
     hasSubmenu: true,
     submenuData: {
-      image: submenuPress.src,
       imagePosition: "left",
       imageWidth: "lg",
       columns: 1,
@@ -141,7 +132,6 @@ export const navLinks: NavLink[] = [
 ];
 
 export const contactSubmenuData: SubmenuData = {
-  image: submenuContact.src,
   imagePosition: "left",
   imageWidth: "lg",
   columns: 1,

@@ -4,12 +4,15 @@ import { cn } from "@/utils/className";
 interface Props {
   reverse?: boolean;
   secondary?: boolean;
+  sectionClass?: string;
 }
 
-const { reverse = false, secondary = false } = Astro.props;
+const { reverse = false, secondary = false, sectionClass } = Astro.props;
 ---
 
-<section class={cn("section-wrapper", secondary && "bg-slate-50")}>
+<section
+  class={cn("section-wrapper", secondary && "bg-slate-50", sectionClass)}
+>
   <div
     class={cn(
       "section-container flex flex-col gap-6 sm:gap-8 lg:gap-32",

@@ -9,7 +9,11 @@ import { MobileMenuButton, MobileMenuDropdown } from "./MobileMenu";
 import { Submenu } from "./Submenu";
 import { navLinks, contactSubmenuData } from "@/data/navbar";
 
-export function Navbar() {
+interface NavbarProps {
+  submenuImages?: Record<string, string>;
+}
+
+export function Navbar({ submenuImages }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
@@ -22,10 +26,16 @@ export function Navbar() {
 
   const isSolid = isScrolled || isMobileMenuOpen;
 
+  const getRawData = () => {
+    if (activeSubmenu === "Contato") return contactSubmenuData;
+    return navLinks.find((link) => link.name === activeSubmenu)?.submenuData;
+  };
+
+  const rawData = getRawData();
   const activeSubmenuData =
-    activeSubmenu === "Contato"
-      ? contactSubmenuData
-      : navLinks.find((link) => link.name === activeSubmenu)?.submenuData;
+    rawData && activeSubmenu && submenuImages?.[activeSubmenu]
+      ? { ...rawData, image: submenuImages[activeSubmenu] }
+      : rawData;
 
   return (
     <header

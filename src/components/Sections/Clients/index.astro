@@ -4,14 +4,21 @@ import { sanityFetch } from "@/sanity/client";
 import {
   type ClientItem,
   CLIENT_LIST_QUERY,
-} from "@/sanity/schemas/Home/Clients/data";
+} from "@/sanity/schemas/Shared/Clients/data";
+import {
+  type Segment,
+  SEGMENTS_QUERY,
+} from "@/sanity/schemas/Shared/Segments/data";
 import { ClientList } from "./ClientList";
 
-const clients = await sanityFetch<ClientItem[]>(
-  CLIENT_LIST_QUERY,
-  {},
-  { perspective: "published" },
-);
+const [clients, segments] = await Promise.all([
+  sanityFetch<ClientItem[]>(
+    CLIENT_LIST_QUERY,
+    {},
+    { perspective: "published" },
+  ),
+  sanityFetch<Segment[]>(SEGMENTS_QUERY, {}, { perspective: "published" }),
+]);
 ---
 
 <Section secondary noPbMobile>
@@ -21,5 +28,5 @@ const clients = await sanityFetch<ClientItem[]>(
   <p class="section-subtitle">
     Parcerias que impulsionam inovação e resultados
   </p>
-  <ClientList clients={clients} client:load />
+  <ClientList clients={clients} segments={segments} client:load />
 </Section>

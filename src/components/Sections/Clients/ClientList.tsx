@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { cn } from "@/utils/className";
-import {
-  SEGMENTS,
-  type SegmentValue,
-} from "@/sanity/schemas/Home/Clients/segments";
-import type { ClientItem } from "@/sanity/schemas/Home/Clients/data";
+import type { Segment } from "@/sanity/schemas/Shared/Segments/data";
+import type { ClientItem } from "@/sanity/schemas/Shared/Clients/data";
 
 interface Props {
   clients: ClientItem[];
+  segments: Segment[];
 }
 
-type ActiveSegment = SegmentValue | "all";
+type ActiveSegment = string | "all";
 
 function Badge({
   count,
@@ -87,16 +85,16 @@ function DesktopButton({
   );
 }
 
-export function ClientList({ clients }: Props) {
+export function ClientList({ clients, segments }: Props) {
   const [active, setActive] = useState<ActiveSegment>("all");
 
   const filtered =
     active === "all" ? clients : clients.filter((c) => c.segment === active);
 
-  const countFor = (seg: SegmentValue) =>
-    clients.filter((c) => c.segment === seg).length;
+  const countFor = (value: string) =>
+    clients.filter((c) => c.segment === value).length;
 
-  const visibleSegments = SEGMENTS.filter((s) => countFor(s.value) > 0);
+  const visibleSegments = segments.filter((s) => countFor(s.value) > 0);
 
   return (
     <div className="flex flex-col lg:flex-row w-full gap-8">

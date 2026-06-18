@@ -1,4 +1,5 @@
 ---
+import LogoCarousel from "./LogoCarousel.astro";
 import DuoSection from "@/components/Layout/Section/DuoSection.astro";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/Icon";
@@ -7,7 +8,8 @@ import logoEmbraer from "@/assets/images/logo-embraer.png";
 import logoTelebras from "@/assets/images/logo-telebras.png";
 ---
 
-<DuoSection>
+<LogoCarousel />
+<DuoSection sectionClass="sm:pt-6 lg:pt-12">
   <div slot="left" class="flex flex-col gap-4 lg:py-12 sm:gap-8">
     <h1 class="section-duo-title">
       A integradora
