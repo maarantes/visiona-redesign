@@ -38,11 +38,17 @@ export function Navbar() {
       <div className="section-container">
         <div className="flex justify-between items-center h-20 transition-all duration-300">
           <div className="shrink-0 flex items-center">
-            <img
-              src={isSolid ? logoVisionaColor.src : logoVisionaWhite.src}
-              alt="Logo Visiona"
-              className="w-35 sm:w-45 transition-opacity duration-300 relative z-10"
-            />
+            <a
+              href="/"
+              aria-label="Visiona — página inicial"
+              className="group relative inline-flex"
+            >
+              <img
+                src={isSolid ? logoVisionaColor.src : logoVisionaWhite.src}
+                alt="Logo Visiona"
+                className="w-35 sm:w-45 transition-opacity duration-300 relative z-10 group-hover:brightness-90"
+              />
+            </a>
           </div>
 
           <div className="hidden xl:flex items-center ml-auto space-x-8 relative">

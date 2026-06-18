@@ -1,0 +1,52 @@
+---
+import Section from "@/components/Layout/Section/index.astro";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import { sanityFetch } from "@/sanity/client";
+import { BLOG_POSTS_QUERY, type BlogPost } from "@/sanity/schemas/Blog/data";
+import BlogPostCard from "./BlogPostCard.astro";
+
+const posts = await sanityFetch<BlogPost[]>(
+  BLOG_POSTS_QUERY,
+  {},
+  { perspective: "published" },
+);
+const [featured, ...rest] = posts;
+---
+
+<Section>
+  <h2 class="section-title">
+    <span class="text-primary">Últimas notícias</span>
+  </h2>
+  <p class="section-subtitle">
+    Novidades e insights do setor aeroespacial brasileiro
+  </p>
+
+  {
+    posts.length > 0 && (
+      <>
+        <div class="flex max-md:full-bleed flex-col gap-4 w-full lg:hidden">
+          {posts.slice(0, 3).map((post) => (
+            <BlogPostCard post={post} size="small" />
+          ))}
+        </div>
+
+        <div class="hidden lg:flex flex-row gap-4 w-full">
+          <div class="w-1/2">
+            <BlogPostCard post={featured} size="large" />
+          </div>
+          <div class="grid grid-cols-2 gap-4 w-1/2">
+            {rest.map((post) => (
+              <BlogPostCard post={post} size="small" />
+            ))}
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  <Button size="lg">
+    Veja todas as notícias
+    <Icon name="arrow-right" />
+  </Button>
+</Section>

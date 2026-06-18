@@ -1,0 +1,78 @@
+---
+import Root from "@/components/Layout/Root.astro";
+import PortableText from "@/components/PortableText.astro";
+import SharePost from "@/components/Sections/Blog/SharePost.astro";
+import { sanityFetch } from "@/sanity/client";
+import {
+  BLOG_SLUGS_QUERY,
+  BLOG_POST_QUERY,
+  type BlogPostFull,
+} from "@/sanity/schemas/Blog/data";
+
+export async function getStaticPaths() {
+  const slugs = await sanityFetch<{ slug: string }[]>(BLOG_SLUGS_QUERY);
+  return slugs.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await sanityFetch<BlogPostFull>(
+  BLOG_POST_QUERY,
+  { slug },
+  { perspective: "published" },
+);
+
+if (!post) return Astro.redirect("/404");
+
+const formattedDate = new Date(post.publishedAt).toLocaleDateString("pt-BR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const pageUrl = Astro.url.href;
+---
+
+<Root title={post.title}>
+  <div
+    class="relative h-64 sm:h-80 lg:h-96 w-full overflow-hidden bg-slate-900"
+  >
+    {
+      post.image && (
+        <img
+          src={`${post.image}?w=1400&auto=format`}
+          alt={post.title}
+          class="absolute inset-0 h-full w-full object-cover opacity-70"
+          fetchpriority="high"
+        />
+      )
+    }
+    <div class="absolute inset-0 bg-linear-to-t from-black/60 to-black/30">
+    </div>
+    <div class="absolute inset-x-0 bottom-0 section-container pb-8 sm:pb-10">
+      <p
+        class="text-sm sm:text-lg font-medium text-white/70 mb-2 max-w-5xl mx-auto"
+      >
+        {formattedDate}
+      </p>
+      <h1
+        class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-snug max-w-5xl mx-auto"
+      >
+        {post.title}
+      </h1>
+    </div>
+  </div>
+
+  <div class="section-container py-10 lg:py-16">
+    <div class="max-w-5xl mx-auto">
+      {
+        post.author && (
+          <p class="text-lg font-medium text-slate-600 mb-10">
+            Autor: {post.author}
+          </p>
+        )
+      }
+      {post.body && <PortableText blocks={post.body} />}
+      <SharePost url={pageUrl} title={post.title} />
+    </div>
+  </div>
+</Root>

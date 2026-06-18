@@ -51,8 +51,7 @@ export const iconMap = {
   message: IconMessageCircle,
   briefcase: IconBriefcase,
   "arrow-right": IconArrowRight,
-  "arrow-up-right": IconArrowUpRight
-
+  "arrow-up-right": IconArrowUpRight,
 } as const;
 
 export type IconName = keyof typeof iconMap;
