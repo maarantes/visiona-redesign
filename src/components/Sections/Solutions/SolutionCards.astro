@@ -1,0 +1,68 @@
+---
+import DOMPurify from "isomorphic-dompurify";
+import type { SolutionCard } from "@/sanity/schemas/Home/SolutionCards/data";
+import { Icon } from "@/components/Icon";
+import { sanityImageSrcSet } from "@/sanity/image";
+
+interface Props {
+  cards: SolutionCard[];
+}
+
+const { cards } = Astro.props;
+---
+
+<div
+  class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 w-full max-md:full-bleed"
+>
+  {
+    cards.map((card) => (
+      <article class="group relative overflow-hidden flex flex-col md:min-h-0 md:aspect-square xl:aspect-2/3">
+        <img
+          src={`${card.image}?w=800&auto=format&q=90`}
+          srcset={sanityImageSrcSet(card.image)}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+          alt={card.title}
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-black/20" />
+        <div class="absolute inset-x-0 bottom-0 h-full md:h-2/3 bg-linear-to-t from-black/75 via-black/40 md:via-transparent to-transparent" />
+
+        <a
+          href={card.link}
+          aria-label={card.title}
+          class="absolute inset-0 z-10"
+        />
+
+        <div class="absolute top-4 right-4 z-20 xl:-translate-y-16 xl:group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none">
+          <Icon
+            name="arrow-up-right"
+            strokeWidth={1}
+            className="text-white size-6 sm:size-12"
+          />
+        </div>
+
+        <div class="relative z-20 mt-auto p-6 pointer-events-none">
+          <div class="transition-transform duration-300 ease-out origin-bottom-left">
+            <div
+              class="mt-4 sm:mt-0 mb-3 text-white [&>svg]:size-8 sm:[&>svg]:size-12 [&>svg_*]:stroke-[1.5]"
+              set:html={DOMPurify.sanitize(card.icon, {
+                USE_PROFILES: { svg: true, svgFilters: true },
+              })}
+            />
+            <h3 class="text-white font-semibold text-xl sm:text-3xl lg:text-4xl leading-tight lg:w-3/4">
+              {card.title}
+            </h3>
+          </div>
+          <div class="grid grid-rows-[1fr] xl:grid-rows-[0fr] xl:group-hover:grid-rows-[1fr] transition-all duration-300 ease-out">
+            <div class="overflow-hidden">
+              <p class="mt-3 text-white/90 sm:text-lg leading-relaxed">
+                {card.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

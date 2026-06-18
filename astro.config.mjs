@@ -3,15 +3,14 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import sanity from "@sanity/astro";
 import path from "path";
+import { sanityConfig } from "./src/sanity/config";
 
 export default defineConfig({
   integrations: [
     react(),
     sanity({
-      projectId: "c2x1figb",
-      dataset: "development",
-      useCdn: false,
-      apiVersion: "2026-06-05",
+      ...sanityConfig,
+      studioBasePath: "/studio",
     }),
   ],
   vite: {

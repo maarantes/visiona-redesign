@@ -1,0 +1,49 @@
+---
+import LogoCarousel from "./LogoCarousel.astro";
+import DuoSection from "@/components/Layout/Section/DuoSection.astro";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import flagBrazil from "@/assets/images/flag-brazil.png";
+import logoEmbraer from "@/assets/images/logo-embraer.png";
+import logoTelebras from "@/assets/images/logo-telebras.png";
+---
+
+<LogoCarousel />
+<DuoSection sectionClass="sm:pt-6 lg:pt-12">
+  <div slot="left" class="flex flex-col gap-4 lg:py-12 sm:gap-8">
+    <h1 class="section-duo-title">
+      A integradora
+      <img
+        src={flagBrazil.src}
+        alt="Bandeira do Brasil"
+        class="inline h-5 lg:h-8 -mt-1 lg:-mt-2"
+      />
+      <span class="text-[#009440]">brasileira</span> de sistemas espaciais
+    </h1>
+    <p class="section-duo-description">
+      Resultante de uma iniciativa única do Governo brasileiro de estimular a
+      criação de uma empresa integradora na indústria espacial, a Visiona é uma
+      joint-venture entre a Embraer Defesa & Segurança e a Telebras.
+    </p>
+    <Button size="lg" className="lg:self-start">
+      Conheça nossa história
+      <Icon name="arrow-right" />
+    </Button>
+  </div>
+  <div
+    slot="right"
+    class="w-full h-full bg-slate-50 rounded-2xl flex flex-col items-center justify-center gap-12 p-10"
+  >
+    <img
+      src={logoEmbraer.src}
+      alt="Embraer"
+      class="w-full max-w-80 object-contain"
+    />
+    <div class="w-3/4 h-px bg-slate-200"></div>
+    <img
+      src={logoTelebras.src}
+      alt="Telebras"
+      class="w-full max-w-80 object-contain"
+    />
+  </div>
+</DuoSection>

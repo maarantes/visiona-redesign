@@ -1,0 +1,37 @@
+---
+import { sanityFetch } from "@/sanity/client";
+import {
+  LOGO_CAROUSEL_QUERY,
+  type LogoCarousel,
+} from "@/sanity/schemas/Shared/Clients/data";
+
+const logos = await sanityFetch<LogoCarousel[]>(
+  LOGO_CAROUSEL_QUERY,
+  {},
+  { perspective: "published" },
+);
+const duration = `${logos.length * 10}s`;
+---
+
+<div
+  class="overflow-hidden"
+  style="mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
+>
+  <div
+    class="flex w-max"
+    style={`animation: marquee ${duration} linear infinite`}
+  >
+    {
+      [...logos, ...logos].map((logo) => (
+        <div class="flex w-24 sm:w-40 shrink-0 items-center justify-center px-2 sm:px-4 py-4 sm:py-8">
+          <img
+            src={`${logo.image}?w=354&auto=format`}
+            alt={logo.name}
+            class="object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,71 @@
+---
+import { Icon } from "@/components/Icon";
+import type { BlogPost } from "@/sanity/schemas/Blog/data";
+
+interface Props {
+  post: BlogPost;
+  size: "large" | "small";
+}
+
+const { post, size } = Astro.props;
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("pt-BR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+---
+
+<a
+  href={`/noticias/${post.slug}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "group relative flex items-end overflow-hidden bg-slate-200",
+    size === "large" ? "lg:h-120 p-8" : "h-48 lg:h-auto p-6",
+  ]}
+>
+  {
+    post.image && (
+      <img
+        src={`${post.image}?w=${size === "large" ? 800 : 400}&auto=format`}
+        alt={post.title}
+        class="absolute inset-0 h-full w-full object-cover"
+        loading={size === "large" ? "eager" : "lazy"}
+      />
+    )
+  }
+  <div class="absolute inset-0 bg-linear-to-t from-black/80 to-black/30"></div>
+  <div
+    class:list={[
+      "absolute z-20 -translate-y-16 max-lg:translate-y-0 group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none",
+      size === "large" ? "top-4 right-4" : "top-3 right-3",
+    ]}
+  >
+    <Icon
+      name="arrow-up-right"
+      strokeWidth={size === "large" ? 1 : 1.5}
+      className={`text-white ${size === "large" ? "size-10" : "size-6"}`}
+    />
+  </div>
+  <div class="relative">
+    <p
+      class:list={[
+        "text-white/70 font-medium text-sm mb-1",
+        size === "large" && "mb-2",
+      ]}
+    >
+      {formatDate(post.publishedAt)}
+    </p>
+    <p
+      class:list={[
+        "font-semibold text-white",
+        size === "large" ? "text-2xl" : "text-lg",
+      ]}
+    >
+      {post.title}
+    </p>
+  </div>
+</a>

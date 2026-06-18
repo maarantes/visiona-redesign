@@ -1,0 +1,48 @@
+:root {
+  --container-px: 1rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --container-px: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-px: 2rem;
+  }
+}
+
+@utility section-wrapper {
+  @apply relative w-full py-8 sm:py-16 lg:py-24;
+}
+
+@utility section-container {
+  @apply max-w-400 mx-auto px-(--container-px);
+}
+
+/* Section */
+@utility section-title {
+  @apply text-3xl lg:text-5xl text-center font-semibold text-slate-900;
+}
+
+@utility section-subtitle {
+  @apply text-lg lg:text-xl xl:text-2xl text-center text-slate-500 max-w-full lg:max-w-2/3 pb-3;
+}
+
+/* Duo Section */
+@utility section-duo-title {
+  @apply text-3xl lg:text-[44px] text-center lg:text-left font-semibold text-slate-900;
+}
+
+@utility section-duo-description {
+  @apply text-lg lg:text-xl max-lg:text-center lg:leading-loose text-slate-500 pb-2;
+}
+
+/* Ignore section-container horizontal padding */
+@utility full-bleed {
+  margin-left: calc(-1 * var(--container-px));
+  margin-right: calc(-1 * var(--container-px));
+  width: calc(100% + 2 * var(--container-px));
+}

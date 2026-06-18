@@ -1,0 +1,33 @@
+@utility scrollbar-hidden {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .scrollbar-mini {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-slate-300) transparent;
+  }
+}
+
+.scrollbar-mini::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-mini::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-mini::-webkit-scrollbar-thumb {
+  background-color: var(--color-slate-200);
+  border-radius: 0;
+}
+
+.scrollbar-mini::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

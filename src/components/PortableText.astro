@@ -1,0 +1,123 @@
+---
+import type { PortableTextBlock } from "@/sanity/schemas/Blog/data";
+
+interface Props {
+  blocks: PortableTextBlock[];
+}
+
+const { blocks } = Astro.props;
+
+function escape(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function renderSpans(
+  children: Extract<PortableTextBlock, { _type: "block" }>["children"],
+  markDefs: Extract<PortableTextBlock, { _type: "block" }>["markDefs"],
+): string {
+  return children
+    .map((span) => {
+      let html = escape(span.text);
+      for (const mark of [...span.marks].reverse()) {
+        if (mark === "strong") html = `<strong>${html}</strong>`;
+        else if (mark === "em") html = `<em>${html}</em>`;
+        else {
+          const def = markDefs.find((d) => d._key === mark);
+          if (def?._type === "link" && def.href) {
+            const ext = def.href.startsWith("http");
+            html = `<a href="${escape(def.href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${html}</a>`;
+          }
+        }
+      }
+      return html;
+    })
+    .join("");
+}
+---
+
+<div class="portable-text">
+  {
+    blocks.map((block) => {
+      if (block._type === "image") {
+        return (
+          <figure>
+            <img
+              src={`${block.url}?auto=format&w=900`}
+              alt={block.alt ?? block.caption ?? ""}
+              class="w-full"
+              loading="lazy"
+            />
+            {block.caption && <figcaption>{block.caption}</figcaption>}
+          </figure>
+        );
+      }
+
+      if (block._type === "quote") {
+        return (
+          <figure class="quote">
+            <blockquote>{block.text}</blockquote>
+            <cite>— {block.author}</cite>
+          </figure>
+        );
+      }
+
+      if (block._type === "block") {
+        const html = renderSpans(block.children, block.markDefs);
+        if (block.style === "h4") return <h2 set:html={html} />;
+        return <p set:html={html} />;
+      }
+    })
+  }
+</div>
+
+<style>
+  @reference "@/styles/global.css";
+
+  .portable-text {
+    @apply flex flex-col gap-4 lg:gap-6;
+  }
+
+  .portable-text :global(strong) {
+    @apply font-semibold;
+  }
+
+  .portable-text h2 {
+    @apply text-xl lg:text-2xl font-semibold text-slate-800 mt-4 lg:mt-8;
+  }
+
+  .portable-text p {
+    @apply leading-relaxed lg:text-lg text-slate-700;
+  }
+
+  .portable-text :global(a) {
+    @apply text-primary;
+  }
+
+  .portable-text figure {
+    @apply my-2 lg:my-4;
+  }
+
+  .portable-text figure img {
+    @apply rounded;
+  }
+
+  .portable-text figcaption {
+    @apply lg:text-center text-slate-600 lg:text-lg italic mt-5;
+  }
+
+  .portable-text figure.quote {
+    @apply my-6 border-l-3 border-primary pl-3 lg:pl-6;
+  }
+
+  .portable-text figure.quote blockquote {
+    @apply lg:text-xl italic leading-relaxed text-slate-800;
+  }
+
+  .portable-text figure.quote cite {
+    @apply max-lg:text-sm mt-3 block not-italic text-slate-500;
+  }
+</style>

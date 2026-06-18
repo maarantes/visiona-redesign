@@ -1,0 +1,77 @@
+---
+import logoTextRaw from "@/assets/images/logo-text-only.svg?raw";
+---
+
+<div id="logo-container" class="relative mt-12 overflow-hidden">
+  <div
+    id="logo-reveal"
+    class="w-full select-none block lg:opacity-40 [&_svg]:w-full [&_svg]:h-auto [&_svg]:block"
+    aria-label="Visiona"
+    set:html={logoTextRaw}
+  />
+  <svg
+    class="absolute inset-0 w-full h-full pointer-events-none"
+    style="mix-blend-mode: multiply;"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.75"
+        numOctaves="4"
+        stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)" opacity="0.75"></rect>
+  </svg>
+</div>
+
+<script>
+  const container = document.getElementById("logo-container") as HTMLElement;
+  const logo = document.getElementById("logo-reveal") as HTMLElement;
+
+  if (container && logo) {
+    let cx = 0,
+      cy = 0;
+    let mx = 0,
+      my = 0;
+    let hasEntered = false;
+    let isLg = window.innerWidth >= 1024;
+
+    const render = () => {
+      if (isLg) {
+        cx += (mx - cx) * 0.08;
+        cy += (my - cy) * 0.08;
+        const radius = hasEntered ? window.innerWidth * 0.5 : 0;
+        const mask = `radial-gradient(circle ${radius}px at ${cx}px ${cy}px, black 10%, transparent 100%)`;
+        logo.style.maskImage = mask;
+        logo.style.webkitMaskImage = mask;
+      } else {
+        logo.style.maskImage = "";
+        logo.style.webkitMaskImage = "";
+      }
+      requestAnimationFrame(render);
+    };
+
+    requestAnimationFrame(render);
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isLg) return;
+      const r = container.getBoundingClientRect();
+      mx = e.clientX - r.left;
+      my = e.clientY - r.top;
+      if (!hasEntered) {
+        cx = mx;
+        cy = my;
+        hasEntered = true;
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      const wasLg = isLg;
+      isLg = window.innerWidth >= 1024;
+      if (wasLg && !isLg) hasEntered = false;
+    });
+  }
+</script>
